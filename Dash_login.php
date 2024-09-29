@@ -1,34 +1,3 @@
-<?php
-
-    require 'Config.php';
-
-$message = '';
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Retrieve the email and password from the form
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-
-    // Prepare the SQL statement to prevent SQL injection
-    $stmt = $conn->prepare("SELECT * FROM `login` WHERE email = ? AND password = ?");
-    $stmt->bind_param("ss", $email, $password); // 'ss' means two string parameters
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    // Check if any row is returned
-    if ($result->num_rows > 0) {
-        header("Location: Dash.php");
-       
-    } else {
-        $message = 'Email or password does not exist.';
-    }
-
-    // Close the connection
-    $stmt->close();
-    $conn->close();
-}
-?>
 
 
 <html lang="en">
@@ -47,11 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
     <div class="container login-container mt-5">
-        <h2 class="text-center p-2">Dashbord Login</h2>
-        <?php if ($message): ?>
-            <div class="alert alert-info text-center"><?php echo $message; ?></div>
-        <?php endif; ?>
-        <form method="POST" action="">
+        <h2 class="text-center p-2">Dashboard Login</h2>
+        <form method="POST" action="Dash_login_process.php">
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
                 <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required>

@@ -5,10 +5,10 @@
     $result = $conn->query($sql);
 
     session_start();
-
-    // if (empty($_SESSION['username'])) {
-    //     header("location:login.php");
-    // }
+    
+    if (empty($_SESSION['username'])) {
+        header("location:login.php");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +32,6 @@
                     <th>Password</th>
                     <th>Contact</th>
                     <th>Date of birth</th>
-                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -48,7 +47,7 @@
                         echo "<td>" . $row["password"] . "</td>";
                         echo "<td>" . $row["contact"] . "</td>";
                         echo "<td>" . $row["dob"] . "</td>";
-                        echo "<td>" . $row['status'] . "</td>";
+                        
 
                       
                         echo '<td><a href="edit.php?id='. $row["id"] .'" class="btn btn-primary m-1">Edit</a>';
